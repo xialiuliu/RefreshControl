@@ -24,7 +24,7 @@ CGFloat const FooterHeight = 40;
 - (instancetype)initWithTarget:(id)target beginRefreshBlock:(RefreshFooterBlock)refreshHeaderBlock{
     self = [super init];
     if (self) {
-        self.backgroundColor = [UIColor yellowColor];
+        self.backgroundColor = [UIColor whiteColor];
         _refreshHeaderBlock = refreshHeaderBlock;
         _scrollView = (UIScrollView *)target;
         [_scrollView addSubview:self];
@@ -47,6 +47,8 @@ CGFloat const FooterHeight = 40;
     self.arrowView.center = CGPointMake(CGRectGetMidX(self.bounds) - 15, CGRectGetMidY(self.bounds));
     
     self.stateLable.center = CGPointMake(CGRectGetMidX(self.bounds) + 45, CGRectGetMidY(self.bounds));
+    
+    NSLog(@"layoutSubviews");
 }
 
 #pragma mark setter
@@ -116,10 +118,9 @@ CGFloat const FooterHeight = 40;
         self.stateLable.hidden = YES;
         self.arrowView.transform =  CGAffineTransformMakeRotation(M_PI*2);
         self.arrowView.hidden = YES;
-        
-        //还原scrollView
-        [self.scrollView setContentInset:UIEdgeInsetsMake(0, 0, 0, 0)];
     }];
+    
+    [self setNeedsLayout];
 }
 
 #pragma mark KVO
@@ -140,9 +141,12 @@ CGFloat const FooterHeight = 40;
     if (offset > 0) {
         //正在拖拽
         if(self.scrollView.isDragging){
+            //还原scrollView
+            [self.scrollView setContentInset:UIEdgeInsetsMake(0, 0, 0, 0)];
+            
             [UIView animateWithDuration:0.3 animations:^{
                 self.arrowView.hidden = NO;
-                if (offset > FooterHeight*1.5) {
+                if (self.scrollView.frame.size.height + self.scrollView.contentOffset.y - self.scrollView.contentSize.height > FooterHeight) {
                     self.arrowView.transform =  CGAffineTransformMakeRotation(M_PI);
                     self.stateLable.text = @"释放更新";
                 }else{

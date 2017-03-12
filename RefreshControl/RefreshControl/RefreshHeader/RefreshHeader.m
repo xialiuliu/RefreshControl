@@ -134,6 +134,9 @@ CGFloat const HeaderHeight = 40;
     if (offset < 0) {
         //正在拖拽
         if(self.scrollView.isDragging){
+            //还原scrollView
+            [self.scrollView setContentInset:UIEdgeInsetsMake(0, 0, 0, 0)];
+            
             [UIView animateWithDuration:0.3 animations:^{
                 self.arrowView.hidden = NO;
                 if (offset < -HeaderHeight*1.5) {

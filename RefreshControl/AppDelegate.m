@@ -16,11 +16,6 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
-    {
-    id __strong obj = [[NSObject alloc] init];
-//        NSLog(@"%d",_objc_rootRetainCount(obj));
-    }
     return YES;
 }
 

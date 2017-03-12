@@ -37,23 +37,14 @@ __weak id reference = nil;
     [self.view addSubview:self.tableView];
     
     [self.refresh beginRefreshing];
-    @autoreleasepool {
-    NSString *str = [NSString stringWithFormat:@"sunnyxx"];
-        reference = str;
-        NSLog(@"%@", str); // Console: (null)
-    }
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    
-    NSLog(@"%@", reference); // Console: sunnyxx
 }
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    
-    NSLog(@"%@", reference); // Console: (null)
 }
 
 - (NSMutableArray *)dataArray{
@@ -69,7 +60,7 @@ __weak id reference = nil;
 
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         __strong typeof (weakSelf) strongSelf = weakSelf;
-        [strongSelf.dataArray addObjectsFromArray:@[@1,@1,@1,@1,@1,@1,@1,@1,@1,@1,@1,]];
+        strongSelf.dataArray = [NSMutableArray arrayWithArray:@[@1,@1,@1,@1,@1,@1,@1,@1,@1,@1,@1]];
         [strongSelf.refresh endRefreshing];
         [strongSelf.tableView reloadData];
     });
