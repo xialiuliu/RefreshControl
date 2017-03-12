@@ -6,8 +6,15 @@
 //  Copyright © 2017年 LCY. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
-@interface RefreshFooter : NSObject
+typedef void (^RefreshFooterBlock)(void);
 
+@interface RefreshFooter : UIView
+
+- (instancetype)initWithTarget:(id)target beginRefreshBlock:(RefreshFooterBlock)refreshHeaderBlock;
+
+- (void)beginRefreshing;
+
+- (void)endRefreshing;
 @end

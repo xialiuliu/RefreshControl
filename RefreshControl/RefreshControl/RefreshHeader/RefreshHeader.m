@@ -89,7 +89,9 @@ CGFloat const HeaderHeight = 40;
         
         //设置偏移量,衔接加载的更多数据
         [UIView animateWithDuration:0.3 animations:^{
+            //刷新控件停留
             [_scrollView setContentInset:UIEdgeInsetsMake(HeaderHeight, 0, 0, 0)];
+            
             [self.activityView startAnimating];
             self.arrowView.hidden = YES;
             self.stateLable.text = @"加载中";
